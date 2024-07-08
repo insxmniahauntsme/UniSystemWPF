@@ -1,0 +1,281 @@
+﻿<Window x:Class="UniSystemEF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:UniSystemEF.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Title="University System" Height="450" Width="800">
+
+    <Window.Resources>
+        <vm:MainWindowViewModel x:Key="MainWindowViewModel"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResource ResourceKey="MainWindowViewModel"/>
+    </Window.DataContext>
+
+    <Grid Background="Lavender">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <StackPanel Background="#2E2A38" Grid.Column="0">
+            <!-- Faculty Button -->
+            <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,5,5,0" Width="180" 
+                    Background="#403A4E" Foreground="White" BorderBrush="Transparent" 
+                    FontFamily="Century Gothic" FontSize="16" Command="{Binding FacultyCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="15">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\graduation.png" 
+                                                   Width="25" Height="25" Margin="10,0,10,0"/>
+                                            <TextBlock Text="Факультети" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                </Button.RenderTransform>
+                <Button.RenderTransformOrigin>
+                    0.5, 0.5
+                </Button.RenderTransformOrigin>
+            </Button>
+
+            <!-- Group Button -->
+            <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,5,5,0" Width="180" 
+                    Background="#403A4E" Foreground="White" BorderBrush="Transparent" 
+                    FontFamily="Century Gothic" FontSize="16" Command="{Binding GroupCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="15">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\people.png" 
+                                                   Width="25" Height="25" Margin="10,0,10,0"/>
+                                            <TextBlock Text="Групи" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                </Button.RenderTransform>
+                <Button.RenderTransformOrigin>
+                    0.5, 0.5
+                </Button.RenderTransformOrigin>
+            </Button>
+
+            <!-- Student Button -->
+            <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,5,5,0" Width="180" 
+                    Background="#403A4E" Foreground="White" BorderBrush="Transparent" 
+                    FontFamily="Century Gothic" FontSize="16" Command="{Binding StudentCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="15">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\student.png" 
+                                                   Width="25" Height="25" Margin="10,0,10,0"/>
+                                            <TextBlock Text="Cтуденти" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="0.9" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.0" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                </Button.RenderTransform>
+                <Button.RenderTransformOrigin>
+                    0.5, 0.5
+                </Button.RenderTransformOrigin>
+            </Button>
+        </StackPanel>
+
+        <!-- Main content area -->
+
+        <Viewbox Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top">
+            <Grid Grid.Column="1">
+                <DataGrid x:Name="FacultiesGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
+                      RowBackground="Lavender" Visibility="{Binding FacultiesVisibility}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding FacultyId}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FacultyName}"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+
+                                        <Button x:Name="DeleteButton" Content="Delete" 
+                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid x:Name="GroupsGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
+                      RowBackground="Lavender" Visibility="{Binding GroupsVisibility}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding GroupId}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding GroupName}"/>
+                        <DataGridTextColumn Header="Faculty" Binding="{Binding Faculty}"/>
+                        <DataGridTextColumn Header="Amount of students" Binding="{Binding AmountOfStudents}"/>
+                        <DataGridTextColumn Header="Average score" Binding="{Binding GroupAverage}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+
+                                        <Button x:Name="DeleteButton" Content="Delete" 
+                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid x:Name="StudentsGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
+                      RowBackground="Lavender" Visibility="{Binding StudentsVisibility}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Registration date" Binding="{Binding RegistrationDate}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                        <DataGridTextColumn Header="Group" Binding="{Binding GroupName}"/>
+                        <DataGridTextColumn Header="Average score" Binding="{Binding AverageScore}"/>
+                        <DataGridTemplateColumn Visibility="Hidden">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+
+
+                                        <Button x:Name="DeleteButton" Content="Delete" 
+                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Viewbox>
+    </Grid>
+
+</Window>

@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "$UniSystemEF/bin/Debug/net6.0/UniSystemEF.dll",
+            "args": [],
+            "cwd": "$wpfProj/UniSystemEF/UniSystemEF/",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "logging": {
+                "moduleLoad": false
+            }
+        }
+    ]
+}
