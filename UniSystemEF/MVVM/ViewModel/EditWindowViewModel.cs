@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using UniSystemEF.Commands;
 using UniSystemEF.Data;
 using UniSystemEF.MVVM.Model;
+using UniSystemEF.MVVM.View;
 
 namespace UniSystemEF.MVVM.ViewModel
 {
     public class EditWindowViewModel : INotifyPropertyChanged
     {
         private string _editText;
-        private object _editItem;
 
         public string EditText
         {
@@ -22,18 +23,6 @@ namespace UniSystemEF.MVVM.ViewModel
                 {
                     _editText = value;
                     OnPropertyChanged(nameof(EditText));
-                }
-            }
-        }
-        public object EditItem
-        {
-            get { return _editItem; }
-            set
-            {
-                if (_editItem != value)
-                {
-                    _editItem = value;
-                    OnPropertyChanged(nameof(EditItem));
                 }
             }
         }
@@ -48,28 +37,31 @@ namespace UniSystemEF.MVVM.ViewModel
         }
         private void OkButton(object parameter)
         {
-            if (_editItem is Faculty faculty)
+            // придумати як передати об"єкт рядка в цей метод, порівняти його
+            // з типом факультету і зробити відповідні дії для редагування рядку
+
+            DataContext context = DataContext.Instance;
+            string Text = (string)parameter;
+            string[] editedText = Text.Split(';');
+
+
+            if(EditWindow._entity is Faculty faculty)
             {
-                faculty.FacultyName = EditText;
-            }
-            else if (_editItem is Group group)
-            {
-                group.GroupName = EditText;
-            }
-            else if (_editItem is Student student)
-            {
-                student.Name = EditText;
+                if (context.Faculties.Contains(faculty))
+                {
+                    var choosedFaculty = context.Faculties.FirstOrDefault(f => f.FacultyId == faculty.FacultyId);
+
+                    choosedFaculty.FacultyId = int.Parse(editedText[0]);
+                    choosedFaculty.FacultyName = editedText[1];
+                    choosedFaculty.Department = editedText[2];
+                    choosedFaculty.Note = editedText[3];
+                }
+
             }
 
-            // Збереження змін
-            DataContext _context = DataContext.Instance;
-            _context.SaveChanges();
-
-            if (parameter is Window window)
-            {
-                window.DialogResult = true;
-                window.Close();
-            }
+            context.SaveChanges();
+            
+           
         }
         private void CancelButton(object parameter)
         {

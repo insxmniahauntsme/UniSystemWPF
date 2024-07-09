@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Edit the record" Height="200" Width="300"
         xmlns:dt ="clr-namespace:UniSystemEF.Data"
-        xmlns:vm ="clr-namespace:UniSystemEF.MVVM.ViewModel">
+        xmlns:vm ="clr-namespace:UniSystemEF.MVVM.ViewModel"
+        xmlns:mw ="clr-namespace:UniSystemEF">
 
     <Window.Resources>
-        <dt:DataContext x:Key="DataContext"/>
         <vm:EditWindowViewModel x:Key="EditWindowViewModel"/>
     </Window.Resources>
 
@@ -18,10 +18,10 @@
         <Viewbox Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel Margin="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox x:Name="EditTextBox" Text="{Binding EditText, UpdateSourceTrigger=PropertyChanged}" 
-                         FontSize="8" FontFamily="Century Gothic" Margin="10" Width="170"/>
+                         FontSize="8" FontFamily="Century Gothic" Margin="10" Width="170" Height="20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="OKButton" Content="OK" Command="{Binding OkCommand}"
-                            Width="75" Margin="5"/>
+                    <Button x:Name="OKButton" Content="OK" Command="{Binding OkCommand}" 
+                            CommandParameter="{Binding EditText}" Width="75" Margin="5"/>
                     
                     <Button x:Name="CancelButton" Content="Cancel" Command="{Binding CancelCommand}" 
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Width="75" Margin="5"/>

@@ -137,12 +137,14 @@ namespace UniSystemEF.MVVM.ViewModel
             
         }
 
-        private void OpenEditWindow(object? parameter)
+        private void OpenEditWindow(object? entity)
         {
             EditWindow editWindow = new EditWindow();
+            EditWindow._entity = entity;
+
             if (editWindow.DataContext is EditWindowViewModel editWindowViewModel)
             {
-                switch (parameter)
+                switch (entity)
                 {
                     case Faculty faculty:
                         editWindowViewModel.EditText = faculty.PrintFaculty();
@@ -157,7 +159,6 @@ namespace UniSystemEF.MVVM.ViewModel
 
                 
             }
-
             editWindow.ShowDialog();
         }
 
