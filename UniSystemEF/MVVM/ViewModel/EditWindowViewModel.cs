@@ -12,9 +12,10 @@ namespace UniSystemEF.MVVM.ViewModel
 {
     public class EditWindowViewModel : INotifyPropertyChanged
     {
-        private string _editText;
+        public event EventHandler RequestClose;
+        private string? _editText;
 
-        public string EditText
+        public string? EditText
         {
             get { return _editText; }
             set
@@ -37,11 +38,8 @@ namespace UniSystemEF.MVVM.ViewModel
         }
         private void OkButton(object parameter)
         {
-            // придумати як передати об"єкт рядка в цей метод, порівняти його
-            // з типом факультету і зробити відповідні дії для редагування рядку
-
             DataContext context = DataContext.Instance;
-            string Text = (string)parameter;
+            string Text = EditText;
             string[] editedText = Text.Split(';');
 
 
@@ -51,17 +49,51 @@ namespace UniSystemEF.MVVM.ViewModel
                 {
                     var choosedFaculty = context.Faculties.FirstOrDefault(f => f.FacultyId == faculty.FacultyId);
 
-                    choosedFaculty.FacultyId = int.Parse(editedText[0]);
-                    choosedFaculty.FacultyName = editedText[1];
-                    choosedFaculty.Department = editedText[2];
-                    choosedFaculty.Note = editedText[3];
+                    choosedFaculty.FacultyName = editedText[0];
+                    choosedFaculty.Department = editedText[1];
+                    choosedFaculty.Note = editedText[2];
+                    OnPropertyChanged(nameof(Faculty));
                 }
 
             }
 
+            if (EditWindow._entity is Group group)
+            {
+                if (context.Groups.Contains(group))
+                {
+                    var choosedGroup = context.Groups.FirstOrDefault(g => g.GroupId == group.GroupId);
+
+                    choosedGroup.GroupName = editedText[0];
+                    choosedGroup.Faculty = editedText[1];
+                    choosedGroup.AmountOfStudents = int.Parse(editedText[2]);
+                    choosedGroup.GroupAverage = double.Parse(editedText[3]);
+                    OnPropertyChanged(nameof(Group));
+                }
+
+            }
+
+            if (EditWindow._entity is Student student)
+            {
+                if (context.Students.Contains(student))
+                {
+                    var choosedStudent = context.Students.FirstOrDefault(s => s.RegistrationDate == student.RegistrationDate);
+
+                    choosedStudent.Surname = editedText[0];
+                    choosedStudent.Name = editedText[1];
+                    choosedStudent.GroupName = editedText[2];
+                    choosedStudent.AverageScore = double.Parse(editedText[3]);
+                    OnPropertyChanged(nameof(Student));
+                }
+
+            }
             context.SaveChanges();
-            
-           
+
+            if (parameter is Window window)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
         }
         private void CancelButton(object parameter)
         {
@@ -72,7 +104,7 @@ namespace UniSystemEF.MVVM.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using UniSystemEF.MVVM.ViewModel;
 
 namespace UniSystemEF.MVVM.View
 {

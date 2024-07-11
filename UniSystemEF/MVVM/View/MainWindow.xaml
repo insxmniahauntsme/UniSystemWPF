@@ -256,7 +256,7 @@
                         <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
                         <DataGridTextColumn Header="Group" Binding="{Binding GroupName}"/>
                         <DataGridTextColumn Header="Average score" Binding="{Binding AverageScore}"/>
-                        <DataGridTemplateColumn Visibility="Hidden">
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

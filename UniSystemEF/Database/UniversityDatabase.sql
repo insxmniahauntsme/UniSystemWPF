@@ -3,6 +3,11 @@ GO
 
 CREATE SCHEMA UniversitySchema
 GO
+
+DROP TABLE UniversitySchema.Faculties;
+DROP TABLE UniversitySchema.Groups;
+DROP TABLE UniversitySchema.Students;
+
 -- Створення таблиці Faculties
 CREATE TABLE UniversitySchema.Faculties (
     FacultyId INT PRIMARY KEY IDENTITY(1, 1),
@@ -11,9 +16,6 @@ CREATE TABLE UniversitySchema.Faculties (
     Note VARCHAR(100)
 );
 
--- Створення унікального індексу на FacultyName
-CREATE UNIQUE INDEX idx_facultyname ON UniversitySchema.Faculties(FacultyName);
-
 -- Створення таблиці Groups
 CREATE TABLE UniversitySchema.Groups (
     GroupId INT PRIMARY KEY IDENTITY(1, 1),
@@ -21,22 +23,18 @@ CREATE TABLE UniversitySchema.Groups (
     Faculty VARCHAR(100),
     AmountOfStudents INT,
     GroupAverage FLOAT,
-    FOREIGN KEY (Faculty) REFERENCES UniversitySchema.Faculties(FacultyName)
-);
 
--- Створення унікального індексу на GroupName
-CREATE UNIQUE INDEX idx_groupname ON UniversitySchema.Groups(GroupName);
+);
 
 -- Створення таблиці Students
 CREATE TABLE UniversitySchema.Students (
-    RegistrationDate DATE,
+    RegistrationDate DATE PRIMARY KEY,
     Surname VARCHAR(100),
     Name VARCHAR(100),
     GroupName VARCHAR(100),
     AverageScore FLOAT,
-    FOREIGN KEY (GroupName) REFERENCES UniversitySchema.Groups(GroupName)
-);
 
+);
 
 -- Вставка даних в таблицю Faculties
 INSERT INTO UniversitySchema.Faculties (FacultyName, Department, Note)

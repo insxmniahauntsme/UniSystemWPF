@@ -24,7 +24,7 @@ namespace UniSystemEF.MVVM.Model
 
         public string PrintGroup()
         {
-            string group = GroupId.ToString() + ";" + GroupName + ";" + Faculty + ";" + AmountOfStudents.ToString() + ";" + GroupAverage.ToString();
+            string group = GroupName + ";" + Faculty + ";" + AmountOfStudents.ToString() + ";" + GroupAverage.ToString();
             return group;
         }
     }

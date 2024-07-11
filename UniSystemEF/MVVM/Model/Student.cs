@@ -23,7 +23,7 @@ namespace UniSystemEF.MVVM.Model
 
         public string PrintStudent()
         {
-            string student = RegistrationDate.ToString() + ";" + Surname + ";" + Name + ";" + GroupName + ";" + AverageScore.ToString();
+            string student = Surname + ";" + Name + ";" + GroupName + ";" + AverageScore.ToString();
             return student;
         }
     }

@@ -28,7 +28,7 @@
 
         public string PrintFaculty()
         {
-            string faculty = FacultyId.ToString() + ";" + FacultyName + ";" + Department + ";" + Note;
+            string faculty = FacultyName + ";" + Department + ";" + Note;
             return faculty;
         }
     }
