@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Input;
 using UniSystemEF.Commands;
 using UniSystemEF.Data;
@@ -36,46 +35,85 @@ namespace UniSystemEF.MVVM.ViewModel
         {
             string[] splittedText = createText.Split(';') ?? throw new ArgumentNullException(nameof(CreateText));
 
-            if (_entity is Faculty faculty) 
-            {   
+            try
+            {
+                if (_entity is Faculty faculty)
+                {
+                    if (splittedText.Length == 3) 
+                    {   
 
-                faculty.FacultyName = splittedText[0] ?? "-";
-                faculty.Department = splittedText[1] ?? "-";
-                faculty.Note = splittedText[2] ?? "-";
+                        faculty.FacultyName = splittedText[0] ?? "-";
+                        faculty.Department = splittedText[1] ?? "-";
+                        faculty.Note = splittedText[2] ?? "-";
 
-                _context.Add(faculty);
-                _access.Faculties.Add(faculty);
+                        _context.Add(faculty);
+                        _access.Faculties.Add(faculty);
                              
-            }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You need to enter all the cells of the row!");
+                        throw new ArgumentOutOfRangeException(nameof(splittedText));
+                    }
 
-            else if (_entity is Group group)
+                }
+
+                else if (_entity is Group group)
+                {
+                    if (splittedText.Length == 4)
+                    {
+                        group.GroupName = splittedText[0] ?? "-";
+                        group.Faculty = splittedText[1] ?? "-";
+                        group.AmountOfStudents = int.Parse(splittedText[2]);
+                        group.GroupAverage = double.Parse(splittedText[3]);
+
+                        _context.Add(group);
+                        _access.Groups.Add(group);
+                    }
+                    else
+                    {
+                        MessageBox.Show("You need to enter all the cells of the row!");
+                        throw new ArgumentOutOfRangeException(nameof(splittedText));
+                    }
+                }
+
+                else if (_entity is Student student)
+                {
+                    if (splittedText.Length == 4)
+                    {
+                        student.Surname = splittedText[0] ?? "-";
+                        student.Name = splittedText[1] ?? "-";
+                        student.GroupName = splittedText[2] ?? "-"  ;
+                        student.AverageScore = double.Parse(splittedText[3]);
+
+                        _context.Add(student);
+                        _access.Students.Add(student);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("You need to enter all the cells of the row!");
+                        throw new ArgumentOutOfRangeException(nameof(splittedText));
+                    }
+
+                }
+
+                if (parameter is Window window)
+                { 
+                    window.DialogResult = true;
+                    window.Close();
+                }
+
+            }
+            catch (FormatException ex)
             {
-                group.GroupName = splittedText[0] ?? "-";
-                group.Faculty = splittedText[1] ?? "-";
-                group.AmountOfStudents = int.Parse(splittedText[2]);
-                group.GroupAverage = double.Parse(splittedText[3]);
-
-                _context.Add(group);
-                _access.Groups.Add(group);
+                MessageBox.Show("Incorrect type of entered data!");
             }
-
-            else if (_entity is Student student)
+            catch (ArgumentException ex)
             {
-                student.Surname = splittedText[0] ?? "-";
-                student.Name = splittedText[1] ?? "-";
-                student.GroupName = splittedText[2] ?? "-"  ;
-                student.AverageScore = double.Parse(splittedText[3]);
-
-                _context.Add(student);
-                _access.Students.Add(student);
-
+                Console.WriteLine($"Invalid argument: {ex.Message}");
             }
 
-            if (parameter is Window window)
-            { 
-                window.DialogResult = true;
-                window.Close();
-            }
 
             _context.SaveChanges();
         }

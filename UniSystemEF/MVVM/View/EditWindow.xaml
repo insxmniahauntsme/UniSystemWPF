@@ -15,6 +15,9 @@
     <Grid Background="#2E2A38">
         <Viewbox Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel Margin="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Editing format: 'cell1;cell2;cell3;...'" Foreground="DarkGray"
+                           FontSize="6" FontFamily="Century Gothic" FontStyle="Italic"/>
+                
                 <TextBox x:Name="EditTextBox" Text="{Binding EditText, UpdateSourceTrigger=PropertyChanged}" 
                          Background="Lavender" FontSize="8" FontFamily="Century Gothic" Margin="10" 
                          Width="170" Height="20" VerticalContentAlignment="Center"/>
