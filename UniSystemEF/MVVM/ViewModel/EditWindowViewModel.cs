@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -12,7 +11,6 @@ namespace UniSystemEF.MVVM.ViewModel
 {
     public class EditWindowViewModel : INotifyPropertyChanged
     {
-        public event EventHandler RequestClose;
         private string? _editText;
 
         public string? EditText
@@ -39,9 +37,9 @@ namespace UniSystemEF.MVVM.ViewModel
         private void OkButton(object parameter)
         {
             DataContext context = DataContext.Instance;
-            string Text = EditText;
-            string[] editedText = Text.Split(';');
+            DataAccess access = DataAccess.Instance;
 
+            string[] editedText = EditText.Split(';');
 
             if(EditWindow._entity is Faculty faculty)
             {
@@ -52,7 +50,7 @@ namespace UniSystemEF.MVVM.ViewModel
                     choosedFaculty.FacultyName = editedText[0];
                     choosedFaculty.Department = editedText[1];
                     choosedFaculty.Note = editedText[2];
-                    OnPropertyChanged(nameof(Faculty));
+                    access.GetFaculties();
                 }
 
             }
@@ -67,7 +65,8 @@ namespace UniSystemEF.MVVM.ViewModel
                     choosedGroup.Faculty = editedText[1];
                     choosedGroup.AmountOfStudents = int.Parse(editedText[2]);
                     choosedGroup.GroupAverage = double.Parse(editedText[3]);
-                    OnPropertyChanged(nameof(Group));
+                    access.GetGroups();
+
                 }
 
             }
@@ -82,7 +81,8 @@ namespace UniSystemEF.MVVM.ViewModel
                     choosedStudent.Name = editedText[1];
                     choosedStudent.GroupName = editedText[2];
                     choosedStudent.AverageScore = double.Parse(editedText[3]);
-                    OnPropertyChanged(nameof(Student));
+                    access.GetStudents();
+
                 }
 
             }

@@ -30,10 +30,22 @@ namespace UniSystemEF.MVVM.ViewModel
             StudentCommand = new RelayCommand(o => ShowStudents());
             DeleteRowCommand = new RelayCommand(DeleteRowButton);
             EditRowCommand = new RelayCommand(EditRowButton);
+            CreateRowCommand = new RelayCommand(CreateRowButton);
 
             FacultiesVisibility = Visibility.Visible;
             GroupsVisibility = Visibility.Collapsed;
             StudentsVisibility = Visibility.Collapsed;
+        }
+
+        private string _gridName = "Факультети";
+
+        public string GridName
+        {
+            get { return _gridName; }
+            set
+            {
+                _gridName = value;
+            }
         }
 
         public ICommand FacultyCommand { get; }
@@ -41,6 +53,7 @@ namespace UniSystemEF.MVVM.ViewModel
         public ICommand StudentCommand { get; }
         public ICommand DeleteRowCommand { get; }
         public ICommand EditRowCommand { get; }
+        public ICommand CreateRowCommand {  get; }
 
         public Visibility FacultiesVisibility
         {
@@ -62,6 +75,8 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowFaculties()
         {
+            GridName = "Факультети";
+            OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Visible;
             GroupsVisibility = Visibility.Collapsed;
             StudentsVisibility = Visibility.Collapsed;
@@ -69,6 +84,8 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowGroups()
         {
+            GridName = "Групи";
+            OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Collapsed;
             GroupsVisibility = Visibility.Visible;
             StudentsVisibility = Visibility.Collapsed;
@@ -76,6 +93,8 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowStudents()
         {
+            GridName = "Студенти";
+            OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Collapsed;
             GroupsVisibility = Visibility.Collapsed;
             StudentsVisibility = Visibility.Visible;
@@ -105,6 +124,7 @@ namespace UniSystemEF.MVVM.ViewModel
 
             _context.SaveChanges();
         }
+
         public static void LoadData()
         {
             var dataAccess = DataAccess.Instance;
@@ -160,6 +180,33 @@ namespace UniSystemEF.MVVM.ViewModel
                 
             }
             editWindow.ShowDialog();
+        }
+
+        public void CreateRowButton(object? parameter)
+        {
+            if(FacultiesVisibility == Visibility.Visible)
+            {
+                Faculty faculty = new Faculty();
+                CreateWindowViewModel._entity = faculty;
+                CreateWindow createWindow = new CreateWindow();
+                createWindow.ShowDialog();
+            }
+
+            if (GroupsVisibility == Visibility.Visible)
+            {
+                Group group = new Group();
+                CreateWindowViewModel._entity = group;
+                CreateWindow createWindow = new CreateWindow();
+                createWindow.ShowDialog();
+            }
+
+            if (StudentsVisibility == Visibility.Visible)
+            {
+                Student student = new Student();
+                CreateWindowViewModel._entity = student;
+                CreateWindow createWindow = new CreateWindow();
+                createWindow.ShowDialog();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

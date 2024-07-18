@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:UniSystemEF.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="University System" Height="450" Width="800">
+        Title="University System" Height="600" Width="1100" MinHeight="450" MinWidth="800" 
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="MainWindowViewModel"/>
@@ -15,6 +16,7 @@
         <StaticResource ResourceKey="MainWindowViewModel"/>
     </Window.DataContext>
 
+    
     <Grid Background="Lavender">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -191,89 +193,159 @@
                 </Button.RenderTransformOrigin>
             </Button>
         </StackPanel>
-
         <!-- Main content area -->
 
         <Viewbox Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top">
             <Grid Grid.Column="1">
-                <DataGrid x:Name="FacultiesGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
-                      RowBackground="Lavender" Visibility="{Binding FacultiesVisibility}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding FacultyId}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding FacultyName}"/>
-                        <DataGridTextColumn Header="Department" Binding="{Binding Department}"/>
-                        <DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
-                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock x:Name="GridTopic" Text="{Binding GridName}"
+                                   FontSize="16" FontFamily="Century Gothic" Width="Auto" Height="20"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Margin="3,3,0,3" Grid.Column="0"/>
+                        <Button x:Name="CreateRowButton" Content="+" VerticalContentAlignment="Top" 
+                                HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" 
+                                Height="20" Width="25" Margin="0,0,5,0" Command="{Binding CreateRowCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Grid.Column="1"/>
+                        
+                    </Grid>
 
-                                        <Button x:Name="DeleteButton" Content="Delete" 
-                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                    <DataGrid x:Name="FacultiesGrid" Background="Lavender" Width="Auto" Height="Auto" AutoGenerateColumns="False" 
+                              RowBackground="Lavender" Visibility="{Binding FacultiesVisibility}" HeadersVisibility="Column" Margin="2,0,2,0">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#2E2A38"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="Margin" Value="0,0,2,0"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding FacultyId}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding FacultyName}" Width="125">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Department" Binding="{Binding Department}" Width="125">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="150">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                    Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
 
-                    </DataGrid.Columns>
-                </DataGrid>
+                                            <Button x:Name="DeleteButton" Content="Delete" 
+                                                    Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGrid x:Name="GroupsGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
-                      RowBackground="Lavender" Visibility="{Binding GroupsVisibility}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding GroupId}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding GroupName}"/>
-                        <DataGridTextColumn Header="Faculty" Binding="{Binding Faculty}"/>
-                        <DataGridTextColumn Header="Amount of students" Binding="{Binding AmountOfStudents}"/>
-                        <DataGridTextColumn Header="Average score" Binding="{Binding GroupAverage}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
-                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                                        <Button x:Name="DeleteButton" Content="Delete" 
-                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <DataGrid x:Name="GroupsGrid" Background="Lavender" Width="Auto" Height="Auto" AutoGenerateColumns="False" 
+                              RowBackground="Lavender" Visibility="{Binding GroupsVisibility}" HeadersVisibility="Column" Margin="2,0,2,0">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#2E2A38"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="Margin" Value="0,0,2,0"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding GroupId}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding GroupName}"/>
+                            <DataGridTextColumn Header="Faculty" Binding="{Binding Faculty}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="TextWrapping" Value="NoWrap"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Amount of students" Binding="{Binding AmountOfStudents}"/>
+                            <DataGridTextColumn Header="Average score" Binding="{Binding GroupAverage}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                    Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
 
-                <DataGrid x:Name="StudentsGrid" Background="Lavender" Width="Auto" AutoGenerateColumns="False" 
-                      RowBackground="Lavender" Visibility="{Binding StudentsVisibility}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Registration date" Binding="{Binding RegistrationDate}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
-                        <DataGridTextColumn Header="Group" Binding="{Binding GroupName}"/>
-                        <DataGridTextColumn Header="Average score" Binding="{Binding AverageScore}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
-                                                Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
+                                            <Button x:Name="DeleteButton" Content="Delete" 
+                                                    Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DataGrid x:Name="StudentsGrid" Background="Lavender" Width="Auto" Height="Auto" AutoGenerateColumns="False" 
+                              RowBackground="Lavender" Visibility="{Binding StudentsVisibility}" HeadersVisibility="Column" Margin="2,0,2,0">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#2E2A38"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Century Gothic"/>
+                                <Setter Property="Margin" Value="0,0,2,0"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Registration date" Binding="{Binding RegistrationDate}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                            <DataGridTextColumn Header="Group" Binding="{Binding GroupName}"/>
+                            <DataGridTextColumn Header="Average score" Binding="{Binding AverageScore}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="EditButton" Content="Edit" Margin="0,0,3,0" 
+                                                    Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
 
 
-                                        <Button x:Name="DeleteButton" Content="Delete" 
-                                                Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
-                                                CommandParameter="{Binding}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                            <Button x:Name="DeleteButton" Content="Delete" 
+                                                    Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
             </Grid>
         </Viewbox>
     </Grid>

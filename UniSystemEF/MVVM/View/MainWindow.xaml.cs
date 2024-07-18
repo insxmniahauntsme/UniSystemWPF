@@ -7,7 +7,7 @@ namespace UniSystemEF
     public partial class MainWindow : Window
     {
         private MainWindowViewModel viewModel;
-        private DataAccess access;
+        private readonly DataAccess access;
 
         public MainWindow()
         {
