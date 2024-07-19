@@ -41,7 +41,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\graduation.png" 
                                                    Width="25" Height="25" Margin="10,0,10,0"/>
-                                            <TextBlock Text="Факультети" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Faculties" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Border>
                                 </ControlTemplate>
@@ -97,7 +97,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\people.png" 
                                                    Width="25" Height="25" Margin="10,0,10,0"/>
-                                            <TextBlock Text="Групи" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Groups" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Border>
                                 </ControlTemplate>
@@ -153,7 +153,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="E:\csharp\wpfProj\UniSystemEF\UniSystemEF\Resources\icons\student.png" 
                                                    Width="25" Height="25" Margin="10,0,10,0"/>
-                                            <TextBlock Text="Cтуденти" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Students" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Border>
                                 </ControlTemplate>
@@ -198,7 +198,7 @@
         <Viewbox Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top">
             <Grid Grid.Column="1">
                 <StackPanel>
-                    <Grid>
+                    <Grid Background="#2E2A38">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -207,7 +207,8 @@
                         <TextBlock x:Name="GridTopic" Text="{Binding GridName}"
                                    FontSize="16" FontFamily="Century Gothic" Width="Auto" Height="20"
                                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                                   Margin="3,3,0,3" Grid.Column="0"/>
+                                   Margin="3,3,0,3" Grid.Column="0" Foreground="White"/>
+                        
                         <Button x:Name="CreateRowButton" Content="+" VerticalContentAlignment="Top" 
                                 HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" 
                                 Height="20" Width="25" Margin="0,0,5,0" Command="{Binding CreateRowCommand}"
@@ -259,9 +260,10 @@
                                                     Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
                                                     CommandParameter="{Binding}"/>
 
-                                            <Button x:Name="DeleteButton" Content="Delete" 
+                                            <Button x:Name="DeleteButton" Content="Delete"
                                                     Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
                                                     CommandParameter="{Binding}"/>
+
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -301,9 +303,14 @@
                                                     Command="{Binding EditRowCommand, Source={StaticResource MainWindowViewModel}}"
                                                     CommandParameter="{Binding}"/>
 
-                                            <Button x:Name="DeleteButton" Content="Delete" 
+                                            <Button x:Name="DeleteButton" Content="Delete"
                                                     Command="{Binding DeleteRowCommand, Source={StaticResource MainWindowViewModel}}"
                                                     CommandParameter="{Binding}"/>
+
+                                            <Button x:Name="DiagramButton"  Content="Chart" Margin="3,0,0,0"
+                                                    Command="{Binding ShowChartCommand, Source={StaticResource MainWindowViewModel}}" 
+                                                    CommandParameter="{Binding}" />
+
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

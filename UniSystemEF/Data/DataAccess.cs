@@ -19,7 +19,7 @@ namespace UniSystemEF.Data
             }
         }
 
-        private DataContext _context;
+        private readonly DataContext _context;
 
         public ObservableCollection<Group> Groups { get; private set; }
         public ObservableCollection<Faculty> Faculties { get; private set; }

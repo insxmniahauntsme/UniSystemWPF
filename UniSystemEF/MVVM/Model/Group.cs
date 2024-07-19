@@ -16,10 +16,7 @@ namespace UniSystemEF.MVVM.Model
 
         public Group()
         {
-            if (GroupName == null)
-            {
-                GroupName = "-";
-            }
+            GroupName ??= "-";
         }
 
         public string PrintGroup()

@@ -8,10 +8,10 @@ namespace UniSystemEF.MVVM.ViewModel
 {
     class CreateWindowViewModel
     {
-        DataContext _context = DataContext.Instance; 
-        DataAccess _access = DataAccess.Instance; 
+        readonly DataContext _context = DataContext.Instance; 
+        readonly DataAccess _access = DataAccess.Instance; 
 
-        public static object _entity;
+        public static object? _entity;
 
         private string? createText = "";
         public string? CreateText
@@ -33,7 +33,8 @@ namespace UniSystemEF.MVVM.ViewModel
 
         public void CreateButton(object? parameter)
         {
-            string[] splittedText = createText.Split(';') ?? throw new ArgumentNullException(nameof(CreateText));
+            string[] splittedText = createText.Split(';')
+                ?? throw new ArgumentNullException(nameof(CreateText));
 
             try
             {
@@ -105,7 +106,7 @@ namespace UniSystemEF.MVVM.ViewModel
                 }
 
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 MessageBox.Show("Incorrect type of entered data!");
             }

@@ -31,13 +31,14 @@ namespace UniSystemEF.MVVM.ViewModel
             DeleteRowCommand = new RelayCommand(DeleteRowButton);
             EditRowCommand = new RelayCommand(EditRowButton);
             CreateRowCommand = new RelayCommand(CreateRowButton);
+            ShowChartCommand = new RelayCommand(ShowChartButton);
 
             FacultiesVisibility = Visibility.Visible;
             GroupsVisibility = Visibility.Collapsed;
             StudentsVisibility = Visibility.Collapsed;
         }
 
-        private string _gridName = "Факультети";
+        private string _gridName = "Faculties";
 
         public string GridName
         {
@@ -54,6 +55,7 @@ namespace UniSystemEF.MVVM.ViewModel
         public ICommand DeleteRowCommand { get; }
         public ICommand EditRowCommand { get; }
         public ICommand CreateRowCommand {  get; }
+        public ICommand ShowChartCommand { get; }
 
         public Visibility FacultiesVisibility
         {
@@ -75,7 +77,7 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowFaculties()
         {
-            GridName = "Факультети";
+            GridName = "Faculties";
             OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Visible;
             GroupsVisibility = Visibility.Collapsed;
@@ -84,7 +86,7 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowGroups()
         {
-            GridName = "Групи";
+            GridName = "Groups";
             OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Collapsed;
             GroupsVisibility = Visibility.Visible;
@@ -93,7 +95,7 @@ namespace UniSystemEF.MVVM.ViewModel
 
         private void ShowStudents()
         {
-            GridName = "Студенти";
+            GridName = "Students";
             OnPropertyChanged(nameof(GridName));
             FacultiesVisibility = Visibility.Collapsed;
             GroupsVisibility = Visibility.Collapsed;
@@ -135,7 +137,7 @@ namespace UniSystemEF.MVVM.ViewModel
 
         }
 
-        private void EditRowButton(object? parameter)
+        private void EditRowButton(object parameter)
         {
             
             if (_context.Faculties.Contains(parameter as Faculty))
@@ -157,7 +159,7 @@ namespace UniSystemEF.MVVM.ViewModel
             
         }
 
-        private void OpenEditWindow(object? entity)
+        private void OpenEditWindow(object entity)
         {
             EditWindow editWindow = new EditWindow();
             EditWindow._entity = entity;
@@ -208,6 +210,16 @@ namespace UniSystemEF.MVVM.ViewModel
                 createWindow.ShowDialog();
             }
         }
+        private void ShowChartButton(object parameter)
+        {
+            if (parameter is Group selectedGroup)
+            {
+                var groups = DataAccess.Instance.Groups.ToList();
+                var chartWindow = new ChartWindow(groups, selectedGroup);
+                chartWindow.ShowDialog();
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

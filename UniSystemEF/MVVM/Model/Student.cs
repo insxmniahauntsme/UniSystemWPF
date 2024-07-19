@@ -15,10 +15,7 @@ namespace UniSystemEF.MVVM.Model
         public double AverageScore { get; set; }
         public Student()
         {
-            if (GroupName == null)
-            {
-                GroupName = "-";
-            }
+            GroupName ??= "-";
         }
 
         public string PrintStudent()
